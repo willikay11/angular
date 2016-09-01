@@ -1,10 +1,9 @@
 
-    // create the module and name it scotchApp
-        // also include ngRoute for all our routing needs
-    var scotchApp = angular.module('templatesApp', ['ngRoute']);
+    
+    var app = angular.module('templatesApp', ['ngRoute','ngMessages']);
 
-    // configure our routes
-    scotchApp.config(function($routeProvider) {
+    // Ng-Routes
+    app.config(function($routeProvider) {
         $routeProvider
 
             // route for the main page
@@ -25,21 +24,21 @@
             })
     });
 
-    scotchApp.controller('mainController', function($scope) {
-        // create a message to display in our view
-        //$scope.message = 'Everyone come and see how good I look!';
+    app.controller('mainController', function($scope) {
+    
+
     });
-    // create the controller and inject Angular's $scope
-    scotchApp.controller('loginController', function($scope) {
-        // create a message to display in our view
+   
+    app.controller('loginController', function($scope) {
+    
         $scope.firstName = localStorage.getItem("firstName");
         $scope.secondname = localStorage.getItem("secondname");
         $scope.email = localStorage.getItem("email");
         $scope.password = localStorage.getItem("password");
 
         $scope.login = function(){
-            var EnteredEmail = document.getElementById("email").value;
-            var EnteredPassword = document.getElementById("pwd").value;
+            var EnteredEmail = $scope.email;
+            var EnteredPassword = $scope.password;
 
             if($scope.email == EnteredEmail && $scope.password == EnteredPassword){
                 $scope.message =  "Login Successful";
@@ -50,13 +49,13 @@
 
     });
 
-    scotchApp.controller('registerController', function($scope) {
+    app.controller('registerController', function($scope) {
         //save user data
         $scope.register = function() {
-            var fname = document.getElementById("fname").value;
-            var sname = document.getElementById("sname").value;
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("pwd").value;
+            var fname = $scope.firstname;
+            var sname = $scope.secondname;
+            var email = $scope.email;
+            var password = $scope.password;
 
             if(fname!==""){
                 localStorage.setItem("firstName", fname);
@@ -73,7 +72,7 @@
             if(password!==""){
                 localStorage.setItem("password", password);
                 $scope.password = localStorage.getItem("password");
-                message = "Registration Successful!";
+                message = "Registration Successful! ";
             }
         };
     });
